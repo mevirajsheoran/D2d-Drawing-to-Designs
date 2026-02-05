@@ -1,3 +1,4 @@
+// src/components/Navbar/index.tsx
 "use client";
 
 import { useSearchParams, usePathname } from "next/navigation";
@@ -11,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { CreateProjectButton } from "@/components/buttons/project";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { AutosaveIndicator } from "@/components/canvas/autosave-indicator";
 import { combinedSlug } from "@/lib/utils";
 import { getInitials } from "@/types/user";
 
@@ -102,14 +104,20 @@ export function Navbar() {
           </div>
         )}
 
-        {/* Right section - Credits, Help, Theme, Avatar, Create */}
+        {/* Right section - Autosave, Credits, Help, Theme, Avatar, Create */}
         <div className="flex items-center gap-3">
+          {/* Autosave indicator - only show on project pages */}
+          {projectId && <AutosaveIndicator />}
+
           {/* Credits display */}
           {user && (
-            <div className="hidden md:flex items-center gap-1.5 text-sm text-muted-foreground px-2 py-1 rounded-md bg-muted/50">
+            <Link
+              href="/billing"
+              className="hidden md:flex items-center gap-1.5 text-sm text-muted-foreground px-2 py-1 rounded-md bg-muted/50 hover:bg-muted transition-colors"
+            >
               <Coins className="h-4 w-4" />
               <span>10 credits</span>
-            </div>
+            </Link>
           )}
 
           {/* Help button */}
